@@ -1,0 +1,78 @@
+Para começar
+    -Instalem um console decente: https://www.fosshub.com/ConEmu.html?dwl=ConEmuSetup.200604.exe
+    -Instalem o CYGWIN para facilitar o uso de ferramentas de terminal: https://www.cygwin.com/setup-x86_64.exe
+    -Façam uma conta na AWS
+    -Leiam esse artigo, sobre introdução ao VIM: https://woliveiras.com.br/posts/Comecando-com-o-editor-de-texto-VIM/
+
+Linux
+    -O Terminal + VIM: Sua nova ferramenta principal
+    	(versão automatizada: https://rgthome.s3-sa-east-1.amazonaws.com/prepare.sh )
+        -Coisas que vão facilitar sua vida (não precisa ser feio)
+            -ZSH 
+                sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+            -vim
+                git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+                sh ~/.vim_runtime/install_awesome_vimrc.sh
+            -Fonts
+                git clone https://github.com/powerline/fonts.git 
+                ./fonts/install.sh
+            -exa
+                https://the.exa.website/
+        -Pq o VI|VIM?
+            -Como entrar
+            -Como sair
+            -Como alterar um arquivo
+            -Como procurar uma palavra                
+    -Estruturas básica de diretórios
+        -o que é cada um deles
+        -pontos de montagem
+        -como encontrar um arquivo
+        -labels (atalhos)
+    -Estrutura básicas de usuários e grupos
+      	https://www.profissionaisti.com.br/2011/08/linux-sistema-de-permissoes/
+        -criar e ver um usuário
+        -criar e ver um grupo      
+    -Permissionamento de arquivos 
+    	https://canaltech.com.br/linux/entendendo-e-configurando-permissoes-de-arquivos-e-pastas-no-linux/  
+        -como ver e entender
+        -tudo pode ser executado
+    -Oq é um SSH
+        -Chaves publicas e privadas
+        -Conectando em outro servidor        
+    -Lendo um arquivo/log
+        -Estruturas (/var/log)
+        -syslog
+        -Ferramentas:
+            -tail
+            -grep
+            -awk
+            -jq    
+
+ETC
+    -Oq é um servidor de aplicação (IIS/NGINX)
+    -Vamos fazer um pequeno site de Hello World e servi-lo em um NGINX
+    -Podemos fazer o nosso próprio servidor de aplicações em GO
+
+Containers/Docker
+    -Threads, CGroup (control groups)    
+    -Oq é um container?
+    -Como fazer uma imagem (dockerfile)
+    -Como usar uma imagem pronta (dockerhub)
+    -Como lidar com várias imagens ao mesmo tempo (docker-compose)
+    -Oq é o tal do Kubernetes (K8s) que tanto falam?
+
+AWS
+    -Como conectar, como se autenticar    
+    -Oq é um EC2
+    -Oq é um ELB
+    -Oq é um RDS
+
+Automação
+    -Ansible
+        -Podemos subir uma máquina e já deixa-la bonitona? (zsh, vim, fonts e exa)
+        -Podemos subir um nginx
+    -Terraform
+        -Podemos tentar criar um EC2
+        -Podemos tentar montar um ELB
+        -Podemos tentar montar um array de EC2
+        -Podemos montar uma estrutura completa, ELB, EC2 e disponibilizar para a internet nosso Hello World
