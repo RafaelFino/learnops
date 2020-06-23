@@ -1,0 +1,29 @@
+{
+	"Metrics": {
+		"http-request": {
+			"Name": "http-request",
+			"CreatedAt": 1592946301,
+			"LastAt": 1592946301,
+			"Value": 54853,
+			"Count": 2,
+			"Max": 35550,
+			"Min": 6705,
+			"Tags": {},
+			"Type": "counter",
+			"Avg": 27426.5
+		},
+		"http-request.echo": {
+			"Name": "http-request.echo",
+			"CreatedAt": 1592946297,
+			"LastAt": 1592946301,
+			"Value": 84345,
+			"Count": 2,
+			"Max": 39083,
+			"Min": 19874,
+			"Tags": {},
+			"Type": "counter",
+			"Avg": 42172.5
+		}
+	},
+	"Series": {}
+}
