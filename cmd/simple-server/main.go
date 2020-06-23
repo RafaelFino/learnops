@@ -50,11 +50,12 @@ func handle(w http.ResponseWriter, r *http.Request) {
 
 	if ret, found := cache[path]; found {
 		fmt.Fprintln(w, ret)
+		log.Printf(`[%s] request returned in %s`, path, time.Since(start))
 	} else {
-		log.Printf(`data not found for uri %s`, path)
+		if path != `/favicon.ico` {
+			log.Printf(`data not found for uri %s`, path)
+		}
 	}
-
-	log.Printf(`[%s] request returned in %s`, path, time.Since(start))
 }
 
 func handleEcho(w http.ResponseWriter, r *http.Request) {
