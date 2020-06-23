@@ -1,0 +1,14 @@
+[Unit] 
+Description=Nosso super simple-server
+ 
+[Service] 
+Type=simple 
+Restart=always 
+RestartSec=1 
+StartLimitInterval=0 
+RemainAfterExit=yes
+ExecStart=/home/ec2-user/learnops/bin/simple-server /home/ec2-user/learnops/etc/simple-server.conf :80
+WorkingDirectory=/home/ec2-user/learnops/
+ 
+[Install]
+WantedBy=multi-user.target

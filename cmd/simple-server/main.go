@@ -43,6 +43,15 @@ func main() {
 		return
 	}
 
+	f, err := os.OpenFile(`/var/log/simple-server`, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("error opening file: %v", err)
+		panic(err)
+	}
+	defer f.Close()
+
+	log.SetOutput(f)
+
 	metricProcessor = metrics.NewMetricProcessor(time.Second*5, logExport)
 
 	loadConfig(os.Args[1])
@@ -174,7 +183,6 @@ func logExport(data *metrics.MetricData) error {
 	if err != nil {
 		log.Printf("fail to marshal metrics: %s\n", err)
 	} else {
-		log.Printf("Metrics: %s\n", string(raw))
 		ioutil.WriteFile(config.MetricPath, raw, 777)
 	}
 
