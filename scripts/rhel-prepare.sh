@@ -30,7 +30,7 @@ wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.14.4.linux-amd64.tar.gz
 rm go1.14.4.linux-amd64.tar.gz
 echo PATH=$PATH:/usr/local/go/bin >> ~/.zshrc
-EXPORT PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/go/bin
 
 sed -i 's/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"agnoster\"/g' .zshrc
 echo 'alias ls="exa -hHBmgaFl --git"' >> ~/.zshrc
@@ -41,6 +41,8 @@ echo zsh >> ~/.bashrc
 
 sudo service docker start
 sudo usermod -a -G docker ec2-user
+
+docker --version
 
 #get learn ops git repo and build
 git clone https://github.com/RafaelFino/learnops.git
@@ -53,10 +55,10 @@ bin/get-currency /home/ec2-user/learnops/etc/currency.json
 cd
 
 #install simple-server daemon
-sudo cp learnops/daemon/simple-server.service /lib/systemd/system/ && \
-sudo systemctl daemon-reload && \
-sudo systemctl enable simple-server && \
-sudo systemctl start simple-server && \
+sudo cp learnops/daemon/simple-server.service /lib/systemd/system/ 
+sudo systemctl daemon-reload 
+sudo systemctl enable simple-server
+sudo systemctl start simple-server 
 sudo systemctl status simple-server
 
 echo 'Done!'

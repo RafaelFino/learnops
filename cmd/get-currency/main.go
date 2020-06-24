@@ -21,7 +21,14 @@ func main() {
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 
-	err = ioutil.WriteFile(os.Args[1], body, 777)
+	f, err := os.OpenFile(os.Args[1], os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0777)
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	_, err = f.WriteString(string(body))
 
 	if err != nil {
 		panic(err)
