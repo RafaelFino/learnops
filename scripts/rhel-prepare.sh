@@ -65,6 +65,9 @@ sudo systemctl enable simple-server
 sudo systemctl start simple-server 
 sudo systemctl status simple-server
 
+echo 'Server test:'
+curl localhost
+
 echo 'Done!'
 
 zsh
