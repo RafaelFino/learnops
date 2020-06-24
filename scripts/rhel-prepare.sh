@@ -40,7 +40,6 @@ sudo sed -i 's/ec2-user:\/bin\/bash/ec2-user:\/usr\/bin\/zsh/g' /etc/passwd
 echo zsh >> ~/.bashrc
 
 sudo service docker start
-
 sudo usermod -a -G docker ec2-user
 
 #get learn ops git repo and build
@@ -49,14 +48,17 @@ cd learnops
 make
 
 #create example data
-bin/data-creator etc/output.txt &
-bin/get-currency etc/currency.json &
+bin/data-creator /home/ec2-user/learnops/etc/output.txt
+bin/get-currency /home/ec2-user/learnops/etc/currency.json
 cd
 
 #install simple-server daemon
-cp daemon/simple-server.service /lib/systemd/systemd/simple-server.service
-sudo systemctl daemon-reload
-sudo systemctl enable
-sudo systemctl start simple-service
+sudo cp learnops/daemon/simple-server.service /lib/systemd/system/ && \
+sudo systemctl daemon-reload && \
+sudo systemctl enable simple-server && \
+sudo systemctl start simple-server && \
+sudo systemctl status simple-server
+
+echo 'Done!'
 
 zsh
