@@ -3,7 +3,7 @@ cd
 
 #update
 sudo yum update -y
-sudo yum install -y git vim zsh wget unzip
+sudo yum install -y git vim zsh wget unzip jq
 
 #install docker
 sudo amazon-linux-extras install docker
@@ -30,6 +30,7 @@ wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.14.4.linux-amd64.tar.gz
 rm go1.14.4.linux-amd64.tar.gz
 echo PATH=$PATH:/usr/local/go/bin >> ~/.zshrc
+EXPORT PATH=$PATH:/usr/local/go/bin
 
 sed -i 's/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"agnoster\"/g' .zshrc
 echo 'alias ls="exa -hHBmgaFl --git"' >> ~/.zshrc
@@ -41,5 +42,21 @@ echo zsh >> ~/.bashrc
 sudo service docker start
 
 sudo usermod -a -G docker ec2-user
+
+#get learn ops git repo and build
+git clone https://github.com/RafaelFino/learnops.git
+cd learnops
+make
+
+#create example data
+bin/data-creator etc/output.txt &
+bin/get-currency etc/currency.json &
+cd
+
+#install simple-server daemon
+cp daemon/simple-server.service /lib/systemd/systemd/simple-server.service
+sudo systemctl daemon-reload
+sudo systemctl enable
+sudo systemctl start simple-service
 
 zsh

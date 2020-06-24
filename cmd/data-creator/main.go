@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 )
 
 var url = `http://loripsum.net/api`
@@ -25,8 +24,10 @@ func main() {
 
 	defer f.Close()
 
-	for {
-		log.Println("executing request...")
+	qty := 5
+
+	for i := 1; i <= qty; i++ {
+		log.Printf("[%d/%d] executing request...\n", i, qty)
 		resp, err := http.Get(url)
 		if err != nil {
 			panic(err)
@@ -39,9 +40,6 @@ func main() {
 		if _, err = f.WriteString(string(body) + "\n"); err != nil {
 			panic(err)
 		}
-
-		log.Printf("waiting...")
-		time.Sleep(time.Second * 5)
 	}
 	log.Printf("stop!")
 }
