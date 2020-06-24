@@ -54,6 +54,10 @@ bin/data-creator /home/ec2-user/learnops/etc/output.txt
 bin/get-currency /home/ec2-user/learnops/etc/currency.json
 cd
 
+#create amd perm simple-server log
+sudo touch /var/log/simple-server
+sudo chmod +wr /var/log/simple-server
+
 #install simple-server daemon
 sudo cp learnops/daemon/simple-server.service /lib/systemd/system/ 
 sudo systemctl daemon-reload 
