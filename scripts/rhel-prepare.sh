@@ -70,4 +70,4 @@ curl localhost
 
 echo 'Done!'
 
-zsh
+exit
