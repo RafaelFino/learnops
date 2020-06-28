@@ -1,5 +1,5 @@
 [Unit] 
-Description=Nosso super simple-server
+Description=Learn-Ops Simple Server
  
 [Service] 
 Type=simple 

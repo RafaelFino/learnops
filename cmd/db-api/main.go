@@ -48,6 +48,7 @@ func main() {
 	connect(config)
 
 	http.HandleFunc("/banks", handle)
+	http.HandleFunc("/banks-html", handleHTML)
 
 	log.Printf("server started")
 
@@ -73,6 +74,37 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintln(w, string(raw))
+	log.Printf(`[%s] request returned in %s`, path, time.Since(start))
+}
+
+func handleHTML(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+
+	path := getPath(r.RequestURI)
+
+	ret, err := LoadBanks()
+
+	if err != nil {
+		log.Printf("fail to try load banks data: %s", err)
+	}
+
+	var list string
+
+	for _, i := range ret {
+		list += fmt.Sprintf(`
+<tr>
+	<td>%d</td>
+	<td>%s</td>
+	<td>%s</td>
+</tr>
+`,
+			i.ID,
+			i.Name,
+			i.Fullname,
+		)
+	}
+
+	fmt.Fprintln(w, strings.ReplaceAll(htmlBanks, "##LIST##", list))
 	log.Printf(`[%s] request returned in %s`, path, time.Since(start))
 }
 
@@ -171,3 +203,30 @@ func LoadBanks() ([]*Bank, error) {
 
 	return ret, err
 }
+
+const htmlBanks = `
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<h2>Lista de bancos</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Nome</th> 
+    <th>Nome completo</th>
+  </tr>
+  ##LIST##
+</table>
+
+</body>
+</html>
+`

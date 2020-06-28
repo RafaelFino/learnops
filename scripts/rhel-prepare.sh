@@ -60,10 +60,14 @@ sudo chmod +wr /var/log/simple-server
 
 #install simple-server daemon
 sudo cp learnops/daemon/simple-server.service /lib/systemd/system/ 
+sudo cp learnops/daemon/db-api.service /lib/systemd/system/ 
 sudo systemctl daemon-reload 
 sudo systemctl enable simple-server
+sudo systemctl enable db-api
 sudo systemctl start simple-server 
+sudo systemctl start db-api
 sudo systemctl status simple-server
+sudo systemctl status db-api
 
 echo 'Server test:'
 curl localhost

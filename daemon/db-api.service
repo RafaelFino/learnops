@@ -1,0 +1,14 @@
+[Unit] 
+Description=Learn-Ops DB-API
+ 
+[Service] 
+Type=simple 
+Restart=always 
+RestartSec=1 
+StartLimitInterval=0 
+RemainAfterExit=yes
+ExecStart=/home/ec2-user/learnops/bin/db-api /home/ec2-user/learnops/etc/db-config.conf :81
+WorkingDirectory=/home/ec2-user/learnops/
+ 
+[Install]
+WantedBy=multi-user.target
