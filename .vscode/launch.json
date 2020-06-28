@@ -26,6 +26,18 @@
                 "${workspaceFolder}/etc/db-config.json",
                 "${workspaceFolder}/etc/script.sql",
             ]
+        },
+        {
+            "name": "db-api",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/db-api/main.go",
+            "env": {},
+            "args": [
+                "${workspaceFolder}/etc/db-config.json",
+                ":8081",
+            ]
         }
     ]
 }

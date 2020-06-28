@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/rafaelfino/learnops/pkg/banks"
+	_ "github.com/lib/pq"
 )
 
 //Config base connection config struct
@@ -30,7 +30,7 @@ func main() {
 		panic(fmt.Errorf("You must set db-config file path as argument"))
 	}
 
-	f, err := os.OpenFile(`/var/log/simple-server`, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	f, err := os.OpenFile(`/var/log/db-api`, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalf("error opening file: %v", err)
 		panic(err)
@@ -45,20 +45,11 @@ func main() {
 		panic(err)
 	}
 
-	connString := createConnectionString(config)
-
-	db = connect(connString)
-
-	err = testConnection(db)
-
-	if err != nil {
-		log.Fatal("db-test fail")
-		panic(err)
-	}
-
-	log.Printf("Connection Ok!")
+	connect(config)
 
 	http.HandleFunc("/banks", handle)
+
+	log.Printf("server started")
 
 	log.Fatal(http.ListenAndServe(os.Args[2], nil))
 }
@@ -69,15 +60,13 @@ func handle(w http.ResponseWriter, r *http.Request) {
 
 	path := getPath(r.RequestURI)
 
-	loader := banks.New(db)
-
-	ret, err := loader.Load()
+	ret, err := LoadBanks()
 
 	if err != nil {
 		log.Printf("fail to try load banks data: %s", err)
 	}
 
-	raw, err := json.MarshallIdent(ret, "", "\t")
+	raw, err := json.MarshalIndent(ret, "", "\t")
 
 	if err != nil {
 		log.Printf("fail to try load banks data: %s", err)
@@ -116,25 +105,69 @@ func readConfig(filepath string) (*DbConfig, error) {
 	return &config, err
 }
 
-func connect(connStr string) *sql.DB {
-	db, err := sql.Open("postgres", connStr)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return db
-}
-
-func createConnectionString(config *DbConfig) string {
-	return fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable",
+func connect(config *DbConfig) {
+	connString := fmt.Sprintf("user=%s password=%s dbname=%s host=%s sslmode=disable",
 		config.User,
 		config.Pass,
 		config.DBName,
 		config.Host,
 	)
+
+	var err error
+	db, err = sql.Open("postgres", connString)
+
+	if err != nil {
+		log.Fatal(err)
+		panic(err)
+	}
+
+	if err = db.Ping(); err != nil {
+		log.Fatal("db-connect fail")
+		panic(err)
+	}
+
+	log.Printf("connected on %s", config.Host)
 }
 
-func testConnection(db *sql.DB) error {
-	return db.Ping()
+//Banks
+type Bank struct {
+	ID       int
+	Name     string
+	Fullname string
+}
+
+const selectBanks = `
+SELECT
+	BankID,
+	BankName,
+	BankFullName
+FROM
+	Banks
+ORDER BY
+	BankID
+`
+
+func LoadBanks() ([]*Bank, error) {
+	ret := []*Bank{}
+
+	rows, err := db.Query(selectBanks)
+
+	if err == nil {
+		defer rows.Close()
+
+		for rows.Next() {
+			bank := &Bank{}
+			if err = rows.Scan(
+				&bank.ID,
+				&bank.Name,
+				&bank.Fullname,
+			); err == nil {
+				ret = append(ret, bank)
+			} else {
+				return ret, err
+			}
+		}
+	}
+
+	return ret, err
 }
