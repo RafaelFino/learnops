@@ -1,0 +1,11 @@
+{
+    "connection": {
+        "nats-uri": "nats://localhost:4222",
+        "cluster-id": "test-cluster",
+        "monitoring-uri": "http://localhost:8222"
+    },
+    "app": {
+        "log-file": "/var/log/chat-server.log"
+    },
+    "api-address": ":8081"
+}

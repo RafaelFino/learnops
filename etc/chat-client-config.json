@@ -1,0 +1,9 @@
+{
+    "msg-box-buffer-size": 600,
+    "server-uri": "http://localhost:8081",
+    "subject": "default-room",
+    "nickname": "default-user",
+    "app": {
+        "log-file": "/var/log/chat-client.log"
+    }
+}

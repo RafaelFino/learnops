@@ -23,7 +23,7 @@ Restart=always
 RestartSec=1 
 StartLimitInterval=0 
 RemainAfterExit=yes
-ExecStart=/opt/nats/nats-streaming-server -l /var/log/nats/stream.log -m 8000
+ExecStart=/opt/nats/nats-streaming-server -l /var/log/nats/stream.log -m 8222
 WorkingDirectory=/opt/nats
 
 [Install]
