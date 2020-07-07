@@ -60,7 +60,7 @@ func main() {
 	//handle with defer resources
 	go func(c *chat.Connection) {
 		for m := range ch {
-			log.Printf("received message: %s\n", m)
+			log.Printf("[Received message] %s\n", m.ToJson())
 		}
 
 		log.Println("Closing connections and elements")

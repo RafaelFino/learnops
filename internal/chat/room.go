@@ -1,6 +1,7 @@
 package chat
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -67,6 +68,13 @@ func (r *Room) processMessages() {
 			log.Printf("Keep alive received from %s\n", msg.From)
 			r.users[msg.From] = time.Now()
 		}
+
+		raw, err := json.Marshal(msg)
+
+		if err == nil {
+			log.Printf("[Received message] %s", string(raw))
+		}
+
 	}
 }
 

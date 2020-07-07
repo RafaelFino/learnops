@@ -1,6 +1,8 @@
 package chat
 
 import (
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -45,6 +47,16 @@ type Message struct {
 	From    string      `json:"from"`
 	Data    string      `json:"data"`
 	ID      uint64      `json:"id"`
+}
+
+func (m *Message) ToJson() string {
+	raw, err := json.Marshal(m)
+
+	if err == nil {
+		return string(raw)
+	}
+
+	return fmt.Sprint(m)
 }
 
 type MessageType int

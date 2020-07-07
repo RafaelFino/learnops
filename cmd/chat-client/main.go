@@ -200,7 +200,7 @@ func termEventHandler(r *chat.Room, conn *chat.Connection, input *widgets.Paragr
 			}
 		case "<C-c>":
 			input.Text = ""
-		case "<C-l>":
+		case "<C-u>":
 			r.ListUsers()
 		case "<C-r>":
 			channels, err := conn.GetChannels()
