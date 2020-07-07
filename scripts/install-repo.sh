@@ -1,10 +1,6 @@
 #!/bin/bash
 cd
 
-#update
-sudo yum update -y
-sudo yum install -y git vim zsh wget unzip jq
-
 #install docker
 #update
 sudo yum update -y
