@@ -1,0 +1,14 @@
+[Unit]
+Description=Simple Chat Server
+
+[Service]
+Type=simple 
+Restart=always 
+RestartSec=1 
+StartLimitInterval=0 
+RemainAfterExit=yes
+ExecStart=/opt/chat/bin/chat-server /opt/chat/etc/chat-server-config.json
+WorkingDirectory=/opt/chat
+
+[Install]
+WantedBy=multi-user.target
