@@ -85,7 +85,7 @@ func (c *Connection) SubscribeServer() (chan *Message, error) {
 //Subscribe subscribe a subject
 func (c *Connection) Subscribe(subject string, nickname string) (chan *Message, error) {
 	log.Printf("Trying to connect on %s\n", c.config.NatsURI)
-	sc, err := stan.Connect(c.config.ClusterID, fmt.Sprintf("%s_%s", c.subject, c.nickname), stan.NatsURL(c.config.NatsURI))
+	sc, err := stan.Connect(c.config.ClusterID, fmt.Sprintf("%s_%s", subject, nickname), stan.NatsURL(c.config.NatsURI))
 
 	if err != nil {
 		return nil, err
