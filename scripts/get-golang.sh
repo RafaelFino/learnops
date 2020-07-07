@@ -4,6 +4,7 @@ cd
 #update
 sudo yum update -y
 sudo yum install -y git vim zsh wget unzip jq
+sudo yum groupinstall -y "Development Tools"
 
 #install go
 wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz

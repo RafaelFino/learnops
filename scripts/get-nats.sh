@@ -7,12 +7,13 @@ rm nats-streaming-server-v0.18.0-linux-amd64.zip
 
 sudo mkdir /opt/nats
 sudo mv nats-streaming-server-v0.18.0-linux-amd64/nats-streaming-server /opt/nats/nats-streaming-server
+sudo rm -rf nats-streaming-server-v0.18.0-linux-amd64
 
 sudo mkdir /var/log/nats
 sudo touch /var/log/nats/stream.log
 sudo chmod 777 /var/log/nats -R
 
-echo '
+sudo echo '
 [Unit]
 Description=Nats Streaming Server
 
@@ -27,7 +28,7 @@ WorkingDirectory=/opt/nats
 
 [Install]
 WantedBy=multi-user.target
-' > ~/nats-streaming.service
+' >  /lib/systemd/system/nats-streaming.service
 
 sudo systemctl daemon-reload 
 sudo systemctl enable nats-streaming

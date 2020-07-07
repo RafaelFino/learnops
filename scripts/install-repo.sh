@@ -8,7 +8,7 @@ sudo yum install -y git vim zsh wget unzip jq
 #install docker
 #update
 sudo yum update -y
-sudo yum install -y git vim zsh wget unzip jq
+sudo yum install -y git vim zsh wget unzip jq telnet
 
 #get learn ops git repo and build
 git clone https://github.com/RafaelFino/learnops.git
