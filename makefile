@@ -29,3 +29,6 @@ db-api:
 chat:
 	go build -o bin/chat-server -v cmd/chat-server/main.go	
 	go build -o bin/chat-client -v cmd/chat-client/main.go	
+
+hello:
+	go build -o bin/hello -v cmd/hello/main.go		
