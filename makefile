@@ -7,6 +7,7 @@ default:
 	go build -o bin/db-api -v cmd/db-api/main.go	
 	go build -o bin/chat-server -v cmd/chat-server/main.go	
 	go build -o bin/chat-client -v cmd/chat-client/main.go	
+	go build -o bin/dev-01 -v cmd/dev-01/main.go
 
 simple-server:
 	go build -o bin/simple-server -v cmd/simple-server/main.go
@@ -32,3 +33,6 @@ chat:
 
 hello:
 	go build -o bin/hello -v cmd/hello/main.go		
+
+dev-01:
+	go build -o bin/dev-01 -v cmd/dev-01/main.go
