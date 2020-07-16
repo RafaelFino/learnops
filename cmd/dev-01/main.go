@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"time"
 )
@@ -30,7 +31,7 @@ const (
 type Roda struct {
 	Posicao   int
 	Estado    EstadoRoda
-	Parafusos []ParafusoDeRoda
+	Parafusos []bool
 }
 
 type EstadoCarro int
@@ -60,9 +61,6 @@ type MacacoAutomotivo struct {
 type FerramentaDeRoda struct {
 }
 
-type ParafusoDeRoda struct {
-}
-
 func ImprimeCarro(carro *Carro) {
 	raw, err := json.MarshalIndent(carro, "", "\t")
 
@@ -82,7 +80,7 @@ func CriaCarroComProblema() *Carro {
 		Estepe: Roda{
 			Estado:    Ok,
 			Posicao:   Estepe,
-			Parafusos: make([]ParafusoDeRoda, 0),
+			Parafusos: []bool{},
 		},
 	}
 
@@ -90,7 +88,7 @@ func CriaCarroComProblema() *Carro {
 		carro.Rodas[i] = Roda{
 			Posicao:   i,
 			Estado:    Ok,
-			Parafusos: make([]ParafusoDeRoda, 4),
+			Parafusos: []bool{true, true, true, true},
 		}
 	}
 
@@ -127,8 +125,19 @@ func SegueViagem(carro *Carro) {
 	}
 }
 
+var carro *Carro
+
 func main() {
-	carro := CriaCarroComProblema()
+	defer func() {
+		if err := recover(); err != nil {
+
+			log.Println("panic occurred:", err)
+		}
+
+		ImprimeCarro(carro)
+	}()
+
+	carro = CriaCarroComProblema()
 
 	SegueViagem(carro)
 }
