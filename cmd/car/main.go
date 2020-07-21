@@ -18,16 +18,10 @@ func main() {
 
 	carro = car.CriaCarroComProblema()
 
-	carro.Acelera(120)
+	err := carro.Acelera(120)
 
-	velocidade, err := carro.Freia()
-
-	for velocidade > 0 {
-		velocidade, err = carro.Freia()
-		if err != nil {
-			panic(err)
-		}
-		log.Printf("nova velocidade: %d", velocidade)
+	if err != nil {
+		panic(err)
 	}
 
 	car.Imprime(carro)
