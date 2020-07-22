@@ -6,23 +6,23 @@ import (
 	"learnops/internal/car"
 )
 
-var carro *car.Carro
+var viagem *car.Viagem
 
 func main() {
 	defer func() {
 		if err := recover(); err != nil {
 			log.Println("panic occurred:", err)
-			car.Imprime(carro)
+			car.Imprime(viagem)
 		}
 	}()
 
-	carro = car.CriaCarroComProblema()
+	viagem = car.CriaViagem()
 
-	err := carro.Acelera(120)
+	err := viagem.Carro.Acelera(120)
 
 	if err != nil {
 		panic(err)
 	}
 
-	car.Imprime(carro)
+	car.Imprime(viagem)
 }

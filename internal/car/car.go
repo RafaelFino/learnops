@@ -18,6 +18,20 @@ const (
 	PosicaoNenhum            RodaPosicao = "nenhum"
 )
 
+type Viagem struct {
+	Carro   *Carro
+	Estrada *Via
+}
+
+type Faixa int
+
+type Via struct {
+	QuantidadeDeFaixas int
+	FaixaAtual         Faixa
+	VelocidadeMaxima   int
+	VelocidadeMinima   int
+}
+
 type Carro struct {
 	Rodas             map[RodaPosicao]*Roda
 	Estepe            *Roda
@@ -93,7 +107,7 @@ func Imprime(obj interface{}) {
 	fmt.Println(string(raw))
 }
 
-func CriaCarroComProblema() *Carro {
+func CriaViagem() *Viagem {
 	carro := &Carro{
 		Velocidade: 80,
 		FreioDeMao: false,
@@ -149,7 +163,74 @@ func CriaCarroComProblema() *Carro {
 		carro.Rodas[PosicaoTraseiraDireita].Estado = RodaComProblemas
 	}
 
-	return carro
+	qtd := 1 + geradorDeNumeroAleatorio.Intn(2)
+	estrada := &Via{
+		QuantidadeDeFaixas: qtd,
+		FaixaAtual:         Faixa(geradorDeNumeroAleatorio.Intn(qtd)),
+		VelocidadeMaxima:   80 + geradorDeNumeroAleatorio.Intn(4)*10,
+		VelocidadeMinima:   80,
+	}
+
+	return &Viagem{
+		Carro:   carro,
+		Estrada: estrada,
+	}
+}
+
+func (v *Viagem) TestaViagem() []error {
+	var ret []string
+
+	if v.Carro.Velocidade == 0 {
+		ret = append(ret, "Vc está parado, assim não vai chegar em lugar algum")
+	}
+
+	if v.Carro.Velocidade < v.Estrada.VelocidadeMinima {
+		ret = append(ret, "está tudo bem? sua velocidade está abaixo do permitido")
+	}
+
+	if v.Carro.Velocidade < v.Estrada.VelocidadeMinima {
+		ret = append(ret, "tá com pressa? sua velocidade está acima do permitido")
+	}
+
+	if len(ret) > 0 {
+		return v.Carro.LogErr("TestaViagem", ret)
+	}
+
+	v.Carro.Log("TestaViagem", "ok")
+	return nil
+}
+
+func (v *Viagem) EhSeguroParar() bool {
+	return v.Estrada.FaixaAtual == 0
+}
+
+func (v *Viagem) MudaFaixa(novaFaixa Faixa) []error {
+	var ret []string
+
+	if v.Carro.Velocidade == 0 {
+		ret = append(ret, "vc está parado, assim não vai chegar em lugar algum")
+	}
+
+	if novaFaixa < 0 || int(novaFaixa) > v.Estrada.QuantidadeDeFaixas {
+		ret = append(ret, "essa faixa não existe")
+	}
+
+	if novaFaixa > v.Estrada.FaixaAtual && (novaFaixa != v.Estrada.FaixaAtual+1) {
+		ret = append(ret, "vc não pode pular mais de uma faixa por vez")
+	}
+
+	if novaFaixa < v.Estrada.FaixaAtual && (novaFaixa != v.Estrada.FaixaAtual-1) {
+		ret = append(ret, "vc não pode pular mais de uma faixa por vez")
+	}
+
+	if len(ret) > 0 {
+		return v.Carro.LogErr("MudaFaixa", ret)
+	} else {
+		v.Estrada.FaixaAtual = novaFaixa
+	}
+
+	v.Carro.Log("MudaFaixa", "ok")
+	return nil
 }
 
 func (c *Carro) LogErr(source string, errs []string) []error {
