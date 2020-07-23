@@ -37,6 +37,10 @@ export PATH=$PATH:/usr/local/go/bin
 
 go version
 
+git clone https://github.com/RafaelFino/learnops.git
+cd learnops
+make
+
 echo 'Done!'
 
 zsh 
