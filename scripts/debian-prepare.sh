@@ -3,7 +3,7 @@ cd
 
 #update
 sudo apt update -y
-sudo apt install -y git vim zsh wget unzip jq telnet curl
+sudo apt install -y git vim zsh wget unzip jq telnet curl terminator
 
 #install vim
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
