@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"learnops/internal/car"
@@ -21,6 +22,7 @@ func main() {
 	errs := viagem.TestaViagem()
 
 	if len(errs) > 0 {
-		panic("deu ruim!")
+		fmt.Println("Estamos com problemas")
+		car.Imprime(viagem)
 	}
 }
