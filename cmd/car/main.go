@@ -18,11 +18,9 @@ func main() {
 
 	viagem = car.CriaViagem()
 
-	err := viagem.Carro.Acelera(120)
+	errs := viagem.TestaViagem()
 
-	if err != nil {
-		panic(err)
+	if len(errs) > 0 {
+		panic("deu ruim!")
 	}
-
-	car.Imprime(viagem)
 }

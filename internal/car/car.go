@@ -192,6 +192,16 @@ func (v *Viagem) TestaViagem() []error {
 		ret = append(ret, "tá com pressa? sua velocidade está acima do permitido")
 	}
 
+	for k, r := range v.Carro.Rodas {
+		if r.Estado != RodaOk {
+			ret = append(ret, fmt.Sprintf("a roda %s não está ok!", k))
+		}
+
+		if r.Parafusos < 4 {
+			ret = append(ret, fmt.Sprintf("a roda %s não está com a quantidade correta de parafusos!", k))
+		}
+	}
+
 	if len(ret) > 0 {
 		return v.Carro.LogErr("TestaViagem", ret)
 	}
