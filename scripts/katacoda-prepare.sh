@@ -10,7 +10,7 @@ git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
 
 #install zsh/vim fonts
-git clone https://github.com/powerline/fonts.git 
+git clone https://github.com/powerline/fonts.git
 ./fonts/install.sh
 
 #install exa (new LS)
@@ -28,20 +28,7 @@ echo set nu >> ~/.vim_runtime/my_configs.vim
 sed -i 's/ec2-user:\/bin\/bash/ec2-user:\/usr\/bin\/zsh/g' /etc/passwd
 echo zsh >> ~/.bashrc
 
-#install go
-wget https://dl.google.com/go/go1.14.4.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.14.4.linux-amd64.tar.gz
-rm go1.14.4.linux-amd64.tar.gz
-echo PATH=$PATH:/usr/local/go/bin >> ~/.zshrc
-export PATH=$PATH:/usr/local/go/bin
-
-go version
-
-git clone https://github.com/RafaelFino/learnops.git
-cd learnops
-make
-
 echo 'Done!'
 
-zsh 
+zsh
 
