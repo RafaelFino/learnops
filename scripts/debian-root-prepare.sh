@@ -26,4 +26,7 @@ sed -i 's/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"avit\"/g' .zshrc
 echo 'alias ls="exa -hHBmgaFl --git"' >> ~/.zshrc
 echo set nu >> ~/.vim_runtime/my_configs.vim
 
+#set timezone
+echo 'America/Sao_Paulo' >> /etc/timezone
+
 echo 'Done!'
