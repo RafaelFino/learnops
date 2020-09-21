@@ -26,6 +26,7 @@ RUN wget https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-
     rm exa-linux-x86_64-0.9.0.zip && \
     echo 'alias ls="exa -hHBmgaFl --git"' >> ~/.zshrc
 
+#setup timezone
 ENV TZ=America/Sao_Paulo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
